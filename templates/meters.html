@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Parking Meters - Phoenix Parking</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }
+        h1 { color: #333; }
+        .nav a { margin-right: 20px; padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+        form { margin: 20px 0; }
+        select, button { padding: 8px 12px; margin-right: 10px; }
+        button { background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        table { width: 100%; border-collapse: collapse; background: white; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #007bff; color: white; }
+        tr:hover { background: #f1f1f1; }
+    </style>
+</head>
+<body>
+    <h1>Street Parking Meters</h1>
+    <div class="nav">
+        <a href="/">Home</a>
+        <a href="/parcels">View Parcels</a>
+    </div>
+    <form method="get">
+        <label>Active:</label>
+        <select name="active">
+            <option value="">All</option>
+            <option value="true" {% if active == 'true' %}selected{% endif %}>Active</option>
+            <option value="false" {% if active == 'false' %}selected{% endif %}>Inactive</option>
+        </select>
+        <label>ADA Accessible:</label>
+        <select name="ada">
+            <option value="">All</option>
+            <option value="true" {% if ada == 'true' %}selected{% endif %}>Yes</option>
+            <option value="false" {% if ada == 'false' %}selected{% endif %}>No</option>
+        </select>
+        <button type="submit">Filter</button>
+    </form>
+    <table>
+        <tr>
+            <th>Meter Number</th>
+            <th>Street Address</th>
+            <th>Type</th>
+            <th>Rate/Time Limit</th>
+            <th>Active</th>
+            <th>ADA Accessible</th>
+            <th>Motorcycle Only</th>
+        </tr>
+        {% for m in meters %}
+        <tr>
+            <td>{{ m[0] }}</td>
+            <td>{{ m[1] }}</td>
+            <td>{{ m[2] }}</td>
+            <td>{{ m[3] }}</td>
+            <td>{{ "Yes" if m[4] else "No" }}</td>
+            <td>{{ "Yes" if m[5] else "No" }}</td>
+            <td>{{ "Yes" if m[6] else "No" }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
